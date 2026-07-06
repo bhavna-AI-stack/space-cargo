@@ -1,140 +1,337 @@
-# Space Cargo Runner
+# 🔷 Decentralized ETH Staking Platform
 
-**Space Cargo Runner** is a retro-futuristic arcade runner built with React, Phaser, Zustand, Socket.io, Express, Prisma, and Neon PostgreSQL. Jump in as a guest pilot, dodge hazards, collect cargo, trigger power-ups, upgrade your ship, and chase the leaderboard.
+A full-stack decentralized staking platform built using **Solidity**, **React.js**, **Ethers.js**, and **SecureChain AI Mainnet**.
 
-[Play on GitHub Pages](https://krrish41.github.io/space-cargo-runner/)
+EtherAuthority enables users to securely stake ETH, withdraw staked assets, calculate rewards, claim rewards, and manage their staking positions through a modern Web3 dashboard integrated with MetaMask.
 
-## Current Gameplay
+---
 
-- Fast lateral ship controls with keyboard, pointer, and touch input.
-- First-run tutorial brief plus a detailed in-game manual.
-- Gradual difficulty progression with increasing speed and denser obstacle pressure.
-- Obstacle variety: asteroids, mines, and fast debris.
-- Collectible variety: cargo, data caches, and fuel cells.
-- Power-ups: Shield, Magnet, Double Score, and Slow Motion.
-- Improved HUD with hull, fuel, pilot rank, distance, score, cargo count, time survived, and active power-up timer.
-- Pause/resume plus sound and music toggles.
-- Animated parallax starfield and dust streak background.
-- Collision, cargo, fuel, and power-up visual effects with lightweight WebAudio feedback.
-- Rich Game Over report with final score, best score, distance, time, cargo, credits, and achievement unlocks.
-- Records screen with achievements and missions.
-- Hangar screen with unlockable ship skins.
-- Leaderboard and live comms feed when the backend is available.
+# 🌟 Features
 
-## Playability on GitHub Pages
+### Wallet Integration
 
-The frontend is a static Vite build and is deployed from `apps/frontend/dist` through GitHub Actions. The Vite base path is set to `/space-cargo-runner/`, so assets resolve correctly on:
+* MetaMask Wallet Connection
+* Automatic Wallet Detection
+* Connected Wallet Display
+* Secure Authentication
 
-```text
-https://krrish41.github.io/space-cargo-runner/
-```
+### Staking Protocol
 
-The game remains playable even if the hosted backend is unavailable. In that case it falls back to an offline pilot profile and mock leaderboard data. Online persistence, wallet binding, upgrades, leaderboard updates, and live comms require the backend URL configured by `VITE_BACKEND_URL`.
+* Stake ETH
+* Withdraw Staked ETH
+* Calculate Rewards
+* Claim Rewards
+* Real-Time Balance Updates
 
-## Repository Layout
+### Dashboard Features
 
-```text
-apps/frontend      React + Vite UI, Phaser game scene, Zustand store
-apps/backend       Express + Socket.io API, Prisma persistence
-packages/shared    Shared TypeScript types
-docs               Architecture, game design, and product writeup
-.github/workflows  GitHub Pages deployment workflow
-```
+* Wallet Balance Tracking
+* Total Staked Balance Monitoring
+* Pending Rewards Display
+* Recent Activity Tracking
+* Protocol Information Dashboard
 
-## Local Development
+### Blockchain Integration
 
-Install dependencies from the monorepo root:
+* SecureChain AI Mainnet Support
+* Smart Contract Interaction via Ethers.js
+* On-Chain Transaction Execution
+* Decentralized Asset Management
+
+---
+
+# 🏗️ Architecture
+
+The platform consists of two major components:
+
+## Smart Contract Layer
+
+### Staking.sol
+
+A Solidity smart contract deployed on SecureChain AI Mainnet responsible for:
+
+* Accepting ETH deposits
+* Managing staking balances
+* Reward calculation
+* Reward claiming
+* Processing withdrawals
+
+### Core Functions
+
+#### stake()
+
+Allows users to stake ETH into the protocol.
+
+#### withdraw(uint256 amount)
+
+Allows users to withdraw previously staked ETH.
+
+#### getBalance(address user)
+
+Returns the user's staked balance.
+
+#### calculateReward(address user)
+
+Calculates pending staking rewards.
+
+#### claimReward()
+
+Allows users to claim accumulated rewards.
+
+---
+
+## Frontend Layer
+
+The frontend is built using React.js, Vite, and Ethers.js and provides:
+
+* Wallet Connectivity
+* Staking Dashboard
+* Reward Tracking
+* Activity Monitoring
+* Smart Contract Interaction
+
+---
+
+# 🔄 Application Workflow
+
+User ---> Connect MetaMask Wallet ---> Stake ETH ---> Balance Updated ---> Rewards Calculated ---> Claim Rewards ---> Withdraw ETH ---> Activity Updated
+
+# 🛠️ Technology Stack
+
+## Frontend
+
+* React.js
+* Vite
+* JavaScript
+* CSS3
+* Ethers.js v6
+
+## Smart Contracts
+
+* Solidity ^0.8.x
+* Remix IDE
+
+## Blockchain
+
+* SecureChain AI Mainnet
+* Chain ID: 34
+
+## Wallet
+
+* MetaMask
+
+## Deployment
+
+* GitHub
+* Vercel
+
+---
+
+# 🚀 Getting Started
+
+## Prerequisites
+
+Before running this project, ensure the following are installed:
+
+* Node.js (v18 or higher)
+* npm
+* Git
+* MetaMask Browser Extension
+
+---
+
+## Installation
+
+### 1. Clone Repository
 
 ```bash
+git clone https://github.com/mummanavasanthi/DeFi_Staking_Platform.git
+```
+
+### 2. Navigate to Project Directory
+
+```bash
+cd DeFi_Staking_Platform
+```
+
+### 3. Install Frontend Dependencies
+
+```bash
+cd frontend
 npm install
 ```
 
-Run the frontend:
+### 4. Start Development Server
 
 ```bash
-npm run dev:frontend
-```
-
-The local frontend opens at:
-
-```text
-http://localhost:5173/space-cargo-runner/
-```
-
-Run the backend separately when you want persistence and leaderboard features:
-
-```bash
-cd apps/backend
 npm run dev
 ```
 
-Create `apps/backend/.env` first:
-
-```env
-DATABASE_URL="postgresql://user:password@host:port/dbname?sslmode=require"
-```
-
-Initialize Prisma:
-
-```bash
-cd apps/backend
-npx prisma db push
-```
-
-## Build and Preview
-
-Build the GitHub Pages frontend from the root:
-
-```bash
-npm run build
-```
-
-Preview the production build:
-
-```bash
-npm run preview:frontend
-```
-
-The GitHub Actions workflow uses:
-
-```bash
-npm ci
-npm run build --workspace frontend
-```
-
-and deploys `apps/frontend/dist`.
-
-## Backend API
-
-- `POST /api/auth`: create or restore a guest/user profile.
-- `POST /api/wallet/bind`: bind a wallet address to the current profile.
-- `POST /api/user/rename`: rename a pilot.
-- `GET /api/leaderboard`: fetch top pilots.
-- `GET /api/feed`: fetch recent live comms history when available.
-- `POST /api/ship/upgrade`: upgrade shield or fuel capacity.
-- Socket event `submitScore`: submit a completed run.
-- Socket event `scoreUpdated`: receive live leaderboard/comms updates.
-
-## Web3 Notes
-
-Wallet connection is optional. Guest mode is the default path and is enough to play immediately. Wallet binding can make a profile portable when the backend is available.
-
-SecureChain network details used by the wallet flow:
+The application will be available at:
 
 ```text
-Network Name: SCAI Mainnet
-RPC URL: https://mainnet-rpc.scai.network
-Chain ID: 34
-Currency Symbol: SCAI
-Block Explorer: https://explorer.securechain.ai
+http://localhost:5173
 ```
 
-## Verification
+---
 
-Recent verification for this release:
+# 🔧 MetaMask Configuration
 
-- Frontend production build passes.
-- Touched frontend files pass focused ESLint with no errors.
-- Browser smoke test confirmed menu, start run, HUD, pause, Records, Hangar, and canvas rendering.
+Add SecureChain AI Mainnet to MetaMask:
 
-Full frontend lint still reports existing wallet/modal/context lint debt unrelated to the gameplay and deployment changes.
+| Parameter       | Value                           |
+| --------------- | ------------------------------- |
+| Network Name    | SecureChain AI Mainnet          |
+| Chain ID        | 34                              |
+| Currency Symbol | SCAI                             |
+| Explorer        | https://explorer.securechain.ai |
+
+After configuration:
+
+1. Open MetaMask
+2. Select SecureChain AI Mainnet
+3. Connect Wallet
+4. Start Staking
+
+---
+
+# 📜 Smart Contract Deployment
+
+## Deploy Using Remix IDE
+
+### Step 1
+
+Open Remix IDE:
+
+https://remix.ethereum.org
+
+### Step 2
+
+Create a new file:
+
+```text
+Staking.sol
+```
+
+Paste the smart contract source code.
+
+### Step 3
+
+Compile Contract
+
+* Open Solidity Compiler
+* Select Solidity Version ^0.8.x
+* Click Compile
+
+### Step 4
+
+Deploy Contract
+
+* Open Deploy & Run Transactions
+* Select Injected Provider - MetaMask
+* Connect Wallet
+* Select SecureChain AI Mainnet
+* Click Deploy
+* Confirm Transaction
+
+### Step 5
+
+Copy Contract Address
+
+After deployment, copy the deployed contract address.
+
+### Frontend Deployment
+
+1. Push project to GitHub
+2. Login to Vercel
+3. Import Repository
+4. Click Deploy
+
+Vercel automatically builds and deploys the application.
+
+---
+
+# 🌐 Live Deployment
+
+### Vercel
+
+https://de-fi-staking-platform.vercel.app/
+
+---
+
+# 🌐 Deployed Smart Contract
+
+### SecureChain AI Mainnet
+
+**Chain ID:** 34
+
+**Contract Address**
+
+```text
+0xa124542Ac0039E7288FD103fdd12efe8d4f35Da3
+```
+
+**Explorer**
+
+https://explorer.securechain.ai
+
+---
+
+# 📸 Screenshots
+
+## Dashboard
+
+<img width="1446" height="712" alt="image" src="https://github.com/user-attachments/assets/e95caa29-1b0a-4f7f-8c46-00f6e15f0da9" />
+
+## Wallet Connected
+<img width="1918" height="911" alt="image" src="https://github.com/user-attachments/assets/ddcb0f3a-cad4-43a6-8485-71e538766169" />
+
+## Stake ETH
+<img width="1258" height="527" alt="image" src="https://github.com/user-attachments/assets/cbba188a-e430-4b98-95c0-7367912bf4e8" />
+
+## Withdraw ETH
+<img width="1217" height="530" alt="image" src="https://github.com/user-attachments/assets/2bef8d0b-f189-4883-b140-d96c04ec0451" />
+
+## Claim Reward
+<img width="1781" height="767" alt="image" src="https://github.com/user-attachments/assets/e69d9a01-6faf-4747-80bc-4c46c1770c24" />
+
+## Recent Activity
+<img width="1275" height="485" alt="image" src="https://github.com/user-attachments/assets/61eee334-93dd-4824-a955-2dea55a03fb5" />
+
+---
+
+# 🔐 Security Features
+
+* Input Validation using require()
+* Balance Verification before Withdrawals
+* Reward Validation
+* Solidity 0.8.x Overflow Protection
+* MetaMask Authentication
+* Secure Blockchain Transactions
+
+---
+
+# 🧪 Testing
+
+The following functionalities were tested successfully:
+
+* Wallet Connection
+* SCAI Staking
+* SCAI Withdrawal
+* Reward Calculation
+* Reward Claiming
+* Balance Retrieval
+* Activity Tracking
+* Smart Contract Interaction
+
+---
+
+# 📈 Future Enhancements
+
+* WalletConnect Integration
+* Coinbase Wallet Support
+* Multi-Token Staking
+* Auto-Compounding Rewards
+* Advanced Dashboard Analytics
+* Explorer Transaction Integration
+* Mobile Application Support
