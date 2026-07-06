@@ -1,0 +1,828 @@
+:root {
+  --text: #f8f1ff;
+  --muted: #d8c8f0;
+  --panel: rgba(17, 16, 38, 0.62);
+  --panel-border: rgba(255, 255, 255, 0.28);
+  --primary: #ff4ca5;
+  --primary-strong: #d72882;
+  --success: #58f2af;
+  --danger: #ff7a8a;
+  --tie: #ffd36f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: url("assets/rps.png") no-repeat center center fixed;
+  background-size: cover;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  padding: 24px 16px 42px;
+}
+
+.gameApp {
+  width: min(980px, 100%);
+  margin: 0 auto;
+}
+
+.game-title {
+  width: min(280px, 70%);
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.card {
+  margin-top: 16px;
+  border: 1px solid var(--panel-border);
+  border-radius: 22px;
+  padding: 20px;
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 12px 32px rgba(8, 7, 21, 0.35);
+}
+
+.gameApp > .walletCard {
+  margin-top: 8px;
+}
+
+.walletCard {
+  min-height: 150px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  position: relative;
+}
+
+.contractDet {
+  text-align: left;
+  color: #eef0ff;
+  font-size: 1.18rem;
+  font-weight: 700;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.45);
+  padding: 12px 14px;
+  border-radius: 14px;
+  background:
+    linear-gradient(155deg, rgba(255, 121, 194, 0.2), rgba(132, 172, 255, 0.14) 55%, rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 170, 222, 0.72);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.14) inset,
+    0 10px 26px rgba(255, 121, 194, 0.22);
+  min-width: 280px;
+}
+
+.contractDet p {
+  margin: 0 0 9px;
+}
+
+.walletSectionTitle {
+  margin-bottom: 10px;
+  font-size: 0.96rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffe3f5;
+}
+
+.walletSummary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.walletStats {
+  display: grid;
+  gap: 8px;
+}
+
+.pillButton,
+.primaryBtn,
+.secondaryBtn,
+.moveCard,
+.Btn {
+  border: 0;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.pillButton,
+.Btn {
+  border-radius: 999px;
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary), #ff7ac2);
+  padding: 10px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.pillButton:hover,
+.Btn:hover {
+  background: linear-gradient(135deg, var(--primary-strong), #ff4ca5);
+  transform: translateY(-1px);
+}
+
+.userBalance {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text);
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 7px 12px;
+  border-radius: 10px;
+}
+
+.gameconnect {
+  margin-top: 24px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.walletCard .gameconnect {
+  flex: 1;
+  align-self: center;
+  margin: 0;
+}
+
+.walletCardDisconnected {
+  display: block;
+}
+
+.walletSummaryConnect {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.walletCardDisconnected .gameconnect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+}
+
+.gameCard h3,
+.historyCard h3 {
+  margin: 4px 0 10px;
+  text-align: center;
+}
+
+.moveGrid {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 8px 0 18px;
+  flex-wrap: wrap;
+}
+
+.moveCard {
+  min-width: 112px;
+  border-radius: 12px;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.moveCard:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: translateY(-1px);
+}
+
+.moveCard:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.selected {
+  background: linear-gradient(120deg, #ff4ca5, #ff81cd);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.betInput {
+  display: block;
+  width: min(280px, 90%);
+  margin: 0 auto 20px;
+  padding: 11px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(9, 9, 20, 0.6);
+  color: #fff;
+  font-size: 1rem;
+}
+
+.betInputInvalid {
+  color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+.betInputValid {
+  color: #55e490;
+  border-color: #55e490;
+}
+
+.primaryBtn,
+.secondaryBtn {
+  border-radius: 12px;
+  padding: 10px 16px;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.98rem;
+  margin: 8px;
+}
+
+.primaryBtn {
+  background: linear-gradient(135deg, var(--primary), #ff7ac2);
+  display: block;
+  margin: 12px auto;
+}
+
+.secondaryBtn {
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.recentGamesToggleBtn {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 12px auto 0;
+}
+
+.homeBackBtn {
+  display: block;
+  margin: 0 0 10px;
+  background: rgba(8, 8, 24, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.primaryBtn:disabled,
+.secondaryBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.activeGameBox {
+  margin-top: 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.activeGameBox p {
+  margin: 6px 0;
+  text-align: center;
+}
+
+.actionRow,
+.withdrawRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.hintText {
+  color: var(--muted);
+}
+
+.gameStatusText {
+  text-align: center;
+  width: 100%;
+}
+
+.withdrawRow {
+  flex-direction: column;
+}
+
+.withdrawMeta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.statusBadge {
+  margin: 14px auto 4px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.statusInfo {
+  background: rgba(139, 208, 255, 0.18);
+  border: 1px solid rgba(139, 208, 255, 0.45);
+}
+
+.statusSuccess {
+  background: rgba(88, 242, 175, 0.16);
+  border: 1px solid rgba(88, 242, 175, 0.5);
+}
+
+.statusError {
+  background: rgba(255, 122, 138, 0.18);
+  border: 1px solid rgba(255, 122, 138, 0.45);
+}
+
+.historyList {
+  display: grid;
+  gap: 10px;
+}
+
+.historyItem {
+  display: grid;
+  grid-template-columns: 40px 1fr 110px 65px;
+  gap: 8px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.statusSuccessText {
+  color: var(--success);
+  font-weight: 800;
+}
+
+.statusErrorText {
+  color: var(--danger);
+  font-weight: 800;
+}
+
+.statusTieText {
+  color: var(--tie);
+  font-weight: 800;
+}
+
+.HomeScreen {
+  width: min(860px, 100%);
+  margin: 8px auto 0;
+  color: var(--text);
+}
+
+.desc {
+  margin: 8px auto 12px;
+  width: fit-content;
+  max-width: min(92%, 760px);
+  padding: 8px 14px;
+  border-radius: 12px;
+  text-align: center;
+  color: bisque;
+  font-size: clamp(1.05rem, 2.2vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.35;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+.Btn {
+  display: block;
+  margin: 0 auto 14px;
+}
+
+.rules {
+  border-radius: 16px;
+  padding: 14px 20px 16px;
+  color: blanchedalmond;
+  background: rgba(8, 8, 24, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 14px 28px rgba(7, 7, 20, 0.35);
+}
+
+.rules h2 {
+  margin: 6px 0 14px;
+  text-align: center;
+  color: #ffffff;
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.rules .desc {
+  margin: 4px auto 12px;
+}
+
+.rules ul {
+  margin: 0;
+  padding-left: 22px;
+}
+
+li {
+  margin-bottom: 10px;
+  line-height: 1.5;
+  color: #f8f2ff;
+  font-size: clamp(1rem, 1.7vw, 1.12rem);
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.rules li::marker {
+  color: #ff7ac2;
+}
+
+@media (min-width: 900px) and (min-height: 700px) {
+  body.gameView #root {
+    padding: 10px 14px;
+  }
+
+  body.gameNoScroll {
+    overflow-y: hidden;
+  }
+
+  body.gameNoScroll #root {
+    height: 100vh;
+  }
+
+  .gameApp.gameAppCompact {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  body.gameNoScroll .gameApp.gameAppCompact {
+    height: calc(100vh - 20px);
+    min-height: 0;
+  }
+
+  body.gameNoScroll .gameApp.gameAppCompact .game-title,
+  body.gameNoScroll .gameApp.gameAppCompact .homeBackBtn,
+  body.gameNoScroll .gameApp.gameAppCompact .walletCard {
+    flex-shrink: 0;
+  }
+
+  body.gameNoScroll .gameApp.gameAppCompact .gameCard {
+    flex: 0 1 auto;
+    max-height: calc(100vh - 250px);
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  .gameApp.gameAppCompact .game-title {
+    width: min(210px, 52%);
+    margin: 0 auto 2px;
+  }
+
+  .gameApp.gameAppCompact .homeBackBtn {
+    align-self: flex-start;
+    width: auto;
+    margin: 0;
+    padding: 8px 14px;
+  }
+
+  .gameApp.gameAppCompact .card {
+    margin-top: 0;
+    padding: 14px 16px;
+  }
+
+  .gameApp.gameAppCompact .walletCard {
+    min-height: 122px;
+  }
+
+  .gameApp.gameAppCompact .contractDet {
+    font-size: 1.06rem;
+    padding: 10px 12px;
+  }
+
+  .gameApp.gameAppCompact .walletSectionTitle {
+    font-size: 0.86rem;
+    margin-bottom: 8px;
+  }
+
+  .gameApp.gameAppCompact .gameCard h3 {
+    margin: 2px 0 6px;
+    font-size: 1.05rem;
+  }
+
+  .gameApp.gameAppCompact .betInput {
+    margin: 0 auto 10px;
+    padding: 9px 10px;
+  }
+
+  .gameApp.gameAppCompact .moveGrid {
+    margin: 4px 0 8px;
+    gap: 8px;
+  }
+
+  .gameApp.gameAppCompact .moveCard {
+    padding: 9px 12px;
+  }
+
+  .gameApp.gameAppCompact .primaryBtn,
+  .gameApp.gameAppCompact .secondaryBtn {
+    margin: 4px;
+    padding: 8px 14px;
+  }
+
+  .gameApp.gameAppCompact .gameCard .primaryBtn {
+    display: block;
+    margin: 6px auto;
+  }
+
+  .gameApp.gameAppCompact .recentGamesToggleBtn {
+    display: block;
+    margin: 8px auto 0;
+  }
+
+  .gameApp.gameAppCompact .statusBadge {
+    margin: 12px auto 2px;
+    padding: 6px 10px;
+  }
+
+  .gameApp.gameAppCompact .activeGameBox {
+    margin-top: 8px;
+    padding: 9px 11px;
+  }
+
+  .gameApp.gameAppCompact .activeGameBox p,
+  .gameApp.gameAppCompact .hintText,
+  .gameApp.gameAppCompact .withdrawMeta {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 820px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  #root {
+    padding: 16px 12px 28px;
+  }
+
+  .card {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .walletCard {
+    min-height: 240px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .contractDet,
+  .walletSummary {
+    align-items: flex-start;
+  }
+
+  .walletSummary {
+    margin-top: 6px;
+  }
+
+  .walletSummaryConnect {
+    top: 16px;
+    right: 16px;
+  }
+
+  .contractDet {
+    min-width: 0;
+    width: 100%;
+    font-size: 1.08rem;
+  }
+
+  .walletStats {
+    width: 100%;
+  }
+
+  .historyItem {
+    grid-template-columns: 30px 1fr;
+    row-gap: 4px;
+  }
+}
+
+@media (min-width: 562px) and (max-width: 820px) {
+  .historyItem {
+    grid-template-columns: 44px 1fr auto;
+    grid-template-areas:
+      "index matchup result"
+      ". bet bet";
+    align-items: start;
+    column-gap: 10px;
+    row-gap: 2px;
+    padding: 10px 12px;
+  }
+
+  .historyItem span:nth-child(1) {
+    grid-area: index;
+  }
+
+  .historyItem span:nth-child(2) {
+    grid-area: matchup;
+  }
+
+  .historyItem span:nth-child(3) {
+    grid-area: bet;
+  }
+
+  .historyItem span:nth-child(4) {
+    grid-area: result;
+    justify-self: end;
+  }
+}
+
+@media (max-width: 560px) {
+  .gameApp {
+    width: 100%;
+  }
+
+  .game-title {
+    width: min(240px, 72%);
+  }
+
+  .pillButton,
+  .Btn {
+    font-size: 0.92rem;
+    padding: 9px 14px;
+  }
+
+  .walletCard {
+    min-height: 200px;
+  }
+
+  .walletCardDisconnected .gameconnect {
+    top: auto;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.05rem;
+    padding: 0 8px;
+  }
+
+  .moveGrid {
+    gap: 8px;
+  }
+
+  .moveCard {
+    min-width: calc(50% - 8px);
+    max-width: calc(50% - 8px);
+    font-size: 0.95rem;
+    padding: 10px 12px;
+  }
+
+  .betInput {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .primaryBtn,
+  .secondaryBtn {
+    width: 100%;
+    margin: 6px 0;
+  }
+
+  .recentGamesToggleBtn {
+    width: auto;
+    margin: 6px auto 0;
+  }
+
+  .actionRow,
+  .withdrawRow {
+    gap: 8px;
+  }
+
+  .withdrawMeta {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .statusBadge {
+    width: 100%;
+  }
+
+  .historyItem {
+    grid-template-columns: 1fr;
+    gap: 2px;
+    text-align: center;
+  }
+
+  .HomeScreen {
+    margin-top: 6px;
+  }
+
+  .desc {
+    font-size: 1rem;
+    padding: 7px 10px;
+  }
+
+  .rules {
+    padding: 10px 12px;
+  }
+
+  li {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 375px) {
+  #root {
+    padding: 10px 8px 20px;
+  }
+
+  .card {
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .game-title {
+    width: min(210px, 74%);
+    margin-bottom: 6px;
+  }
+
+  .walletCard {
+    min-height: 185px;
+    gap: 10px;
+  }
+
+  .walletSummaryConnect {
+    top: 12px;
+    right: 12px;
+  }
+
+  .pillButton,
+  .Btn {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+  }
+
+  .walletCardDisconnected .gameconnect {
+    bottom: 12px;
+    font-size: 0.96rem;
+  }
+
+  .contractDet {
+    padding: 10px 11px;
+    font-size: 1.02rem;
+  }
+
+  .walletSectionTitle {
+    font-size: 0.82rem;
+    margin-bottom: 7px;
+  }
+
+  .userBalance {
+    font-size: 0.9rem;
+    padding: 6px 9px;
+  }
+
+  .gameCard h3,
+  .historyCard h3 {
+    font-size: 1.08rem;
+    margin: 3px 0 8px;
+  }
+
+  .betInput {
+    padding: 10px 10px;
+    font-size: 0.95rem;
+  }
+
+  .moveCard {
+    min-width: 100%;
+    max-width: 100%;
+    font-size: 0.92rem;
+    padding: 9px 10px;
+  }
+
+  .primaryBtn,
+  .secondaryBtn {
+    font-size: 0.9rem;
+    padding: 9px 12px;
+  }
+
+  .activeGameBox {
+    padding: 10px 10px;
+  }
+
+  .activeGameBox p,
+  .hintText,
+  .historyItem {
+    font-size: 0.9rem;
+  }
+
+  .statusBadge {
+    font-size: 0.9rem;
+    padding: 7px 9px;
+  }
+}
